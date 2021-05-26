@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
@@ -8,13 +8,14 @@ import { addHero, removeHero } from "../services/userService";
 import { Link } from "react-router-dom";
 import UserContext from "../common/userContext";
 
-const HeroCard = ({ data, userTeam }) => {
-  const user = UserContext;
+const HeroCard = ({ data }) => {
+  const [user, setUserContext] = useState(UserContext);
   const [heroInTeam, setHeroInTeam] = useState(false);
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
+    console.log(user)
     if (user.team) {
       user.team.forEach((el) => {
         if (data.id === el.id) {
@@ -27,11 +28,11 @@ const HeroCard = ({ data, userTeam }) => {
   const handleAdd = (e) => {
     if (!alignment()) {
       setError(
-        "El equipo debe tener 3 miembros con orientación buena y 3 con orientación mala."
+        "Team must have 3 'GOOD' Alignment heroes and 3 'BAD' Alignment heroes."
       );
       setShow(true);
     } else if (teamMaxLength()) {
-      setError("El equipo ya contiene 6 heroes");
+      setError("Team has already 6 heroes");
       setShow(true);
     } else {
       addHero(data);

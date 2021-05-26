@@ -17,7 +17,7 @@ const NavBar = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="/my-team">My team</Nav.Link>
-            <Nav.Link href="/all-heroes">Heroes</Nav.Link>
+            <Nav.Link href="/all-heroes">Hero Finder</Nav.Link>
             {!user && (
               <React.Fragment>
                 <Nav.Link href="/login">Log In</Nav.Link>

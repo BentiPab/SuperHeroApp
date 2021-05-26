@@ -24,8 +24,8 @@ const UserTeam = (props) => {
       {console.log(userTeam)}
       {userTeam.length === 0 && (
         <div className="my-team">
-        <h5>No hay ningun equipo creado.</h5>
-        <Button className="my-team-btn btn btn-primary" onClick={handleClick}>Crear nuevo equipo</Button>
+        <h5>No existing team.</h5>
+        <Button className="my-team-btn btn btn-primary" onClick={handleClick}>Build Team!</Button>
         </div>
       )}
       {userTeam.length > 0 && <Heroes data={userTeam} />}

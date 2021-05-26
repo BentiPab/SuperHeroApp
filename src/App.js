@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
 import { Route, Switch, Redirect } from "react-router";
 import "./App.css";
 import Login from "./components/LoginForm";
@@ -10,55 +10,40 @@ import AllHeroes from "./components/AllHeroes";
 import UserTeam from "./components/UserTeam";
 import UserContext from "./common/userContext";
 import HeroProfile from "./components/HeroProfile";
-import { getUserTeam } from "./services/userService";
 import Register from "./components/Register";
 
-class App extends Component {
-  state = {};
+const App = () => {
+  const user = useContext(UserContext);
 
-  async componentDidMount() {
-    const user = UserContext;
-    const team = await getUserTeam();
-    user.team = team;
+  return (
+    <React.Fragment>
+      <UserContext.Provider value={user}>
+        <NavBar />
+        {
+          <main className="container">
+            <Switch>
+              <Route path="/register" component={Register} />
+              <Route path="/logout" component={Logout} />
+              <Route path="/login" component={Login} />
+              <ProtectedRoute path="/all-heroes/:id" component={HeroProfile} />
+              <ProtectedRoute
+                path="/my-team"
+                render={(props) => <UserTeam {...props} />}
+              />
+              <ProtectedRoute
+                path="/all-heroes"
+                render={(props) => <AllHeroes {...props} />}
+              />
 
-    this.setState({ user });
-  }
-
-  render() {
-    const { user } = this.state;
-    return (
-      <React.Fragment>
-        <UserContext.Provider value={user}>
-          <NavBar />
-          {
-            <main className="container">
-              <Switch>
-                <Route path="/register" component={Register} />
-                <Route path="/logout" component={Logout} />
-                <Route path="/login" component={Login} />
-                <ProtectedRoute
-                  path="/all-heroes/:id"
-                  component={HeroProfile}
-                />
-                <ProtectedRoute
-                  path="/my-team"
-                  render={(props) => <UserTeam {...props} />}
-                />
-                <ProtectedRoute
-                  path="/all-heroes"
-                  render={(props) => <AllHeroes {...props} />}
-                />
-
-                <Route path="/not-found" component={NotFound} />
-                <Redirect from="/" to="my-team" />
-                <Redirect to="/not-found" />
-              </Switch>
-            </main>
-          }
-        </UserContext.Provider>
-      </React.Fragment>
-    );
-  }
-}
+              <Route path="/not-found" component={NotFound} />
+              <Redirect from="/" to="my-team" />
+              <Redirect to="/not-found" />
+            </Switch>
+          </main>
+        }
+      </UserContext.Provider>
+    </React.Fragment>
+  );
+};
 
 export default App;

@@ -7,14 +7,14 @@ import Button from "react-bootstrap/Button";
 const heroSchema = Yup.object().shape({
   id: Yup.number()
     .integer()
-    .min(0, "El ID debe ser mayor a 0")
-    .max(731, "El ID debe ser menor o igual a 731"),
+    .min(0, "ID must be greater than 0")
+    .max(731, "ID must be equal or less than 731"),
   name: Yup.string(),
 });
 
 const HeroForm = ({ handleForm }) => (
   <Container className="hero-form">
-      <h3>Buscador de Heroe</h3>
+      <h3>Hero Finder</h3>
     <Formik
       initialValues={{
         id: 0,
@@ -50,7 +50,7 @@ const HeroForm = ({ handleForm }) => (
                 type="text"
                 name="name"
                 onChange={handleChange}
-                placeholder="Nombre del Heroe"
+                placeholder="Hero Name"
                 isInvalid={!!errors.name}
               />
               <Form.Control.Feedback type="invalid">
@@ -58,7 +58,7 @@ const HeroForm = ({ handleForm }) => (
               </Form.Control.Feedback>
             </Form.Group>
             <Button type="submit" className="my-1">
-              Buscar
+              Search
             </Button>
           </Form.Row>
         </Form>

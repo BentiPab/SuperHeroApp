@@ -60,11 +60,10 @@ const HeroSearch = () => {
         <React.Fragment>
           <Row className="justify-content-md-center ">
             <Col className="loading">
-              <p className="loading">Cargando...</p>
+              <p className="loading">Loading Results...</p>
               <Spinner animation="border" role="status" className="spinner">
                 <span className="sr-only">Loading...</span>
               </Spinner>
-              <p className="loading">Puede demorar unos segundos</p>
             </Col>
           </Row>
         </React.Fragment>

@@ -43,7 +43,7 @@ const Register = () => (
           <Form noValidate onSubmit={handleSubmit}>
             <Form.Row>
               <Form.Group as={Col} sm="4" controlId="validationFormikFirstName">
-                <Form.Label>Nombre</Form.Label>
+                <Form.Label>Name</Form.Label>
                 <Form.Control
                   type="text"
                   name="firstName"
@@ -56,7 +56,7 @@ const Register = () => (
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group as={Col} sm="4" controlId="validateFormikSurname">
-                <Form.Label>Apellido</Form.Label>
+                <Form.Label>Surname</Form.Label>
                 <Form.Control
                   type="text"
                   name="surname"
