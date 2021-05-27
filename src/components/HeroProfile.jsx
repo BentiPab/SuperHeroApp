@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
 import Nav from "react-bootstrap/Nav";
 import { getHeroById } from "../services/heroesServices";
 import Container from "react-bootstrap/Container";

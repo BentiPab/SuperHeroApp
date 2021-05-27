@@ -78,7 +78,7 @@ const Login = (props) => (
           </Form.Group>
           <Button type="submit">Log In</Button>
           <br />
-          <Link to="/register">No tienes cuenta? Registrate!</Link>
+          <Link to="/register">Don't have an account? Join Now!</Link>
         </Form>
       )}
     </Formik>

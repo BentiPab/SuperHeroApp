@@ -96,7 +96,7 @@ const Register = () => (
               </Form.Group>
             </Form.Row>
 
-            <Button type="submit">Log In</Button>
+            <Button type="submit">Create Account</Button>
           </Form>
         )}
       </Formik>

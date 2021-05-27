@@ -6,7 +6,7 @@ import Logout from "./components/LogOut";
 import NavBar from "./components/NavBar";
 import NotFound from "./components/NotFounds";
 import ProtectedRoute from "./common/ProtectedRoute";
-import AllHeroes from "./components/HeroSearch";
+import HeroSearch from "./components/HeroSearch";
 import UserTeam from "./components/UserTeam";
 import UserContext from "./common/userContext";
 import HeroProfile from "./components/HeroProfile";
@@ -56,7 +56,7 @@ const App = () => {
               />
               <ProtectedRoute
                 path="/all-heroes"
-                render={(props) => <AllHeroes {...props} />}
+                render={(props) => <HeroSearch {...props} />}
               />
               <Route path="/not-found" component={NotFound} />
               <Redirect from="/" to="my-team" />

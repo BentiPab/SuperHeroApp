@@ -79,31 +79,32 @@ const HeroCard = ({ data }) => {
   return (
     <Container fluid="true">
       <ModalError show={show} handleClose={handleClose} body={error} />
+      {user && (
+        <Card className="hero-card">
+          <Card.Img
+            className="hero-card-img-top"
+            variant="top"
+            src={data.image.url}
+          />
+          <Card.ImgOverlay>
+            <Link className="hero-profile-link" to={`/all-heroes/${data.id}`}>
+              <Stats data={data} />
+            </Link>
 
-      <Card className="hero-card">
-        <Card.Img
-          className="hero-card-img-top"
-          variant="top"
-          src={data.image.url}
-        />
-        <Card.ImgOverlay>
-          <Link className="hero-profile-link" to={`/all-heroes/${data.id}`}>
-            <Stats data={data} />
-          </Link>
-
-          <Button
-            className="hero-button"
-            size="sm"
-            variant={heroInTeam ? "danger" : "primary"}
-            onClick={heroInTeam ? handleRemove : handleAdd}
-          >
-            {heroInTeam ? "Remove" : "Add"}
-          </Button>
-        </Card.ImgOverlay>
-        <Card.Body className="heroes-card-body">
-          <Card.Title className="heroes-card-title">{data.name}</Card.Title>
-        </Card.Body>
-      </Card>
+            <Button
+              className="hero-button"
+              size="sm"
+              variant={heroInTeam ? "danger" : "primary"}
+              onClick={heroInTeam ? handleRemove : handleAdd}
+            >
+              {heroInTeam ? "Remove" : "Add"}
+            </Button>
+          </Card.ImgOverlay>
+          <Card.Body className="heroes-card-body">
+            <Card.Title className="heroes-card-title">{data.name}</Card.Title>
+          </Card.Body>
+        </Card>
+      )}
     </Container>
   );
 };
