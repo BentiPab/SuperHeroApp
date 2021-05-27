@@ -7,7 +7,9 @@ export async function getHeroById(id) {
     `https://www.superheroapi.com/api.php/10226042967317208/${id}`
   );
 
-  return hero.data;
+  if (hero.data.error) {
+    throw new Error(hero.data.error);
+  } else return hero.data;
 }
 
 export async function getHeroByName(name) {
@@ -16,6 +18,7 @@ export async function getHeroByName(name) {
   hero = await http.get(
     `https://www.superheroapi.com/api.php/10226042967317208/search/${name}`
   );
-
-  return hero.data.results;
+  if (hero.data.error) {
+    throw new Error(hero.data.error);
+  } else return hero.data.results;
 }

@@ -2,14 +2,6 @@ body {
   background-color: #888 !important;
 }
 
-/* heroes grid */
-
-.heroes {
-  margin-top: 50px;
-}
-
-/* heroes card grid*/
-
 img {
   max-width: 100%;
   max-height: 160px;
@@ -49,10 +41,6 @@ img {
   max-height: 250px;
 }
 
-.team-build {
-  margin-top: 50px;
-}
-
 .hero-card:hover .hero-card-img-top {
   filter: blur(2px);
   transform: scale(0.99);
@@ -79,6 +67,8 @@ img {
   margin: 0 !important;
   font-weight: bold;
   text-align: center;
+  max-width: 86.32px !important;
+  min-width: 61.688px !important;
 }
 
 .stats-title {
@@ -138,7 +128,6 @@ form button {
 
 .my-team {
   text-align: center !important;
-  margin-top: 20px;
 }
 
 .my-team button {
@@ -146,7 +135,6 @@ form button {
 }
 
 .hero-form {
-  margin-top: 20px;
   text-align: center;
 }
 
@@ -169,4 +157,40 @@ form button {
   .hero-form .form-group {
     margin-bottom: 10px !important;
   }
+}
+
+@media screen and (max-width: 420px) {
+  main {
+    overflow-x: scroll;
+  }
+}
+
+nav {
+  margin-bottom: 25px !important;
+}
+
+.hero-profile-container {
+  max-width: 650px !important;
+  min-width: 420px !important;
+  padding: 0 !important;
+}
+
+.hero-profile-container .card-body-profile {
+  display: flex;
+  flex-direction: row;
+  justify-items: center !important;
+  padding: 10px !important;
+  justify-content: center !important;
+  align-items: center !important;
+  align-content: center !important;
+}
+
+.hero-profile-container table {
+  text-align: center;
+}
+
+.hero-profile-container table th,
+.hero-profile-container table tr {
+  padding: 0 !important;
+  vertical-align: middle !important;
 }

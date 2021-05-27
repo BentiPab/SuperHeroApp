@@ -16,8 +16,8 @@ const Stats = ({ data }) => {
         ))}
       </Row>
       <Row>
-        <Col className="stat-col">ALIGNMENT</Col>
-        <Col className="stat-col">
+        <Col md="6" className="stat-col">ALIGNMENT</Col>
+        <Col md="6" className="stat-col">
           {data.biography.alignment === "good" ? "GOOD" : "BAD"}
         </Col>
       </Row>

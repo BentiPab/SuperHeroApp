@@ -1,35 +1,68 @@
 import React, { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import Nav from "react-bootstrap/Nav";
 import { getHeroById } from "../services/heroesServices";
 import Container from "react-bootstrap/Container";
+import HeroCard from "./HeroCard";
+import HeroWorkTable from "./HeroWorkTable";
+import HeroAppearanceTable from "./HeroAppearanceTable";
 
 const HeroProfile = (props) => {
   const heroId = props.match.params.id;
   const [hero, setHero] = useState();
+  const [profile, setProfile] = useState(true);
+  const [appearance, setAppearance] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
       const hero = await getHeroById(heroId);
-
       setHero(hero);
     }
     fetchData();
   }, [heroId]);
 
+  const handleClickProfile = () => {
+    setProfile(true);
+    setAppearance(false);
+  };
+
+  const handleClickAppearance = () => {
+    setProfile(false);
+    setAppearance(true);
+  };
+
   return (
-    <Container fluid="true">
+    <Container className="hero-profile-container">
       {hero && (
-        <Card style={{ width: "18rem" }}>
-          <Card.Img variant="top" src={hero.image.url} />
-          <Card.Body>
-            <Card.Title>Card Title</Card.Title>
-            <Card.Text>
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </Card.Text>
-            <Button variant="primary">Go somewhere</Button>
-          </Card.Body>
+        <Card>
+          <Card.Header>
+            <Nav variant="pills" defaultActiveKey="#profile">
+              <Nav.Item>
+                <Nav.Link onClick={handleClickProfile} href="#profile">
+                  Hero Profile
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link onClick={handleClickAppearance} href="#appearance">
+                  Appearance
+                </Nav.Link>
+              </Nav.Item>
+            </Nav>
+          </Card.Header>
+          {profile && (
+            <Card.Body className="card-body-profile" id="profile">
+              <HeroCard data={hero} />
+              <Card.Text>
+                <HeroWorkTable data={hero} />
+              </Card.Text>
+            </Card.Body>
+          )}
+          {appearance && (
+            <Card.Body id="appearance">
+              <HeroAppearanceTable data={hero} />
+            </Card.Body>
+          )}
         </Card>
       )}
     </Container>

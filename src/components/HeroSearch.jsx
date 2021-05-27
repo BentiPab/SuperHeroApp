@@ -19,26 +19,32 @@ const HeroSearch = () => {
     let search = [];
     setSearching(true);
     if (value.id) {
+      setSearching(false);
       try {
         search = await getHeroById(value.id);
-        setSearching(false);
         setHeroes(search);
       } catch (e) {
-        console.log(e);
+        noHeroFound();
       }
     } else if (value.name) {
+      setSearching(false);
       try {
         search = await getHeroByName(value.name);
-        setSearching(false);
+
         setHeroes(search);
       } catch (e) {
-        console.log(e);
+        noHeroFound();
       }
     } else {
       setShow(true);
       setSearching(false);
-      setError("Debe completar almenos un campo");
+      setError("You must fill at least one field");
     }
+  };
+
+  const noHeroFound = () => {
+    setShow(true);
+    setError("No hero found");
   };
 
   const handleClose = () => {

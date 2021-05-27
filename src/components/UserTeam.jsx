@@ -10,8 +10,7 @@ const UserTeam = () => {
 
   return (
     <Container>
-      {console.log(user.team)}
-      {user.team.length === 0 && (
+      {!user.team  && (
         <div className="my-team">
           <h5>No existing team.</h5>
           <Link to="/all-heroes">
@@ -21,7 +20,7 @@ const UserTeam = () => {
           </Link>
         </div>
       )}
-      {user.team.length > 0 && <Heroes data={user.team} />}
+      {user.team && <Heroes data={user.team} />}
     </Container>
   );
 };

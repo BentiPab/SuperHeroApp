@@ -14,15 +14,15 @@ const HeroCard = ({ data }) => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    console.log(user.team, "team");
-
-    user.team.forEach((el) => {
-      if (data.id === el.id) {
-        setHeroInTeam(true);
-      } else {
-        setHeroInTeam(false);
-      }
-    });
+    if (user.team) {
+      user.team.forEach((el) => {
+        if (data.id === el.id) {
+          setHeroInTeam(true);
+        } else {
+          setHeroInTeam(false);
+        }
+      });
+    }
   }, [data.id, user.team]);
 
   const handleAdd = () => {
@@ -46,23 +46,25 @@ const HeroCard = ({ data }) => {
 
     if (!user.team) {
       return true;
+    } else {
+      user.team.forEach((heroMember) => {
+        if (heroMember.biography.alignment === "good") {
+          good += 1;
+        } else if (heroMember.biography.alignment === "bad") {
+          bad += 1;
+        }
+      });
     }
-
-    user.team.forEach((heroMember) => {
-      if (heroMember.biography.alignment === "good") {
-        good += 1;
-      } else if (heroMember.biography.alignment === "bad") {
-        bad += 1;
-      }
-    });
 
     return bad <= 3 && good <= 3 ? true : false;
   };
 
   const teamMaxLength = () => {
-    if (user.team.length >= 6) {
+    if (!user.team) {
+      return false;
+    } else if (user.team.length >= 6) {
       return true;
-    } else return false;
+    }
   };
 
   const handleClose = () => {

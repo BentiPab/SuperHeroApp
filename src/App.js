@@ -6,7 +6,7 @@ import Logout from "./components/LogOut";
 import NavBar from "./components/NavBar";
 import NotFound from "./components/NotFounds";
 import ProtectedRoute from "./common/ProtectedRoute";
-import AllHeroes from "./components/AllHeroes";
+import AllHeroes from "./components/HeroSearch";
 import UserTeam from "./components/UserTeam";
 import UserContext from "./common/userContext";
 import HeroProfile from "./components/HeroProfile";
@@ -15,9 +15,13 @@ import auth from "./services/authServices";
 
 const App = () => {
   const authUser = auth.getCurrentUser();
-  authUser.team = [];
-
   const [user, setUser] = useState(authUser);
+
+  useEffect(() => {
+    if (user) {
+      user.team = [];
+    }
+  }, [user]);
 
   const dispatchHeroEvent = (actionType, payload) => {
     switch (actionType) {
