@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
@@ -6,8 +6,7 @@ import Container from "react-bootstrap/Container";
 import UserContext from "./../common/userContext";
 
 const NavBar = () => {
-  const userCont = UserContext;
-  const user = userCont._currentValue2;
+  const {user} = useContext(UserContext);
 
   return (
     <Container fluid="true">

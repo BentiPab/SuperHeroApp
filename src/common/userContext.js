@@ -1,8 +1,7 @@
 import React from "react";
 import auth from "../services/authServices";
 
-let user = auth.getCurrentUser();
-const UserContext = React.createContext(user);
+const UserContext = React.createContext();
 
 UserContext.displayName = "UserContext";
 

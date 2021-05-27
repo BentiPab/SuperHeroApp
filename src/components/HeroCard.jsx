@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
@@ -9,23 +9,25 @@ import { Link } from "react-router-dom";
 import UserContext from "../common/userContext";
 
 const HeroCard = ({ data }) => {
-  const [user, setUserContext] = useState(UserContext);
+  const { user, dispatchHeroEvent } = useContext(UserContext);
   const [heroInTeam, setHeroInTeam] = useState(false);
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    console.log(user)
+    console.log(user.team, "team");
     if (user.team) {
       user.team.forEach((el) => {
         if (data.id === el.id) {
           setHeroInTeam(true);
+        } else {
+          setHeroInTeam(false)
         }
       });
     }
   }, [data.id, user.team]);
 
-  const handleAdd = (e) => {
+  const handleAdd = () => {
     if (!alignment()) {
       setError(
         "Team must have 3 'GOOD' Alignment heroes and 3 'BAD' Alignment heroes."
@@ -35,8 +37,8 @@ const HeroCard = ({ data }) => {
       setError("Team has already 6 heroes");
       setShow(true);
     } else {
-      addHero(data);
-      setHeroInTeam(!heroInTeam);
+      dispatchHeroEvent("ADD_HERO", data);
+      setHeroInTeam(true);
     }
   };
 
@@ -70,13 +72,14 @@ const HeroCard = ({ data }) => {
   };
 
   const handleRemove = () => {
-    removeHero(data);
-    setHeroInTeam(!heroInTeam);
+    dispatchHeroEvent("REMOVE_HERO", data.id);
+    setHeroInTeam(false);
   };
 
   return (
     <Container fluid="true">
       <ModalError show={show} handleClose={handleClose} body={error} />
+
       <Card className="hero-card">
         <Card.Img
           className="hero-card-img-top"
@@ -92,7 +95,7 @@ const HeroCard = ({ data }) => {
             className="hero-button"
             size="sm"
             variant={heroInTeam ? "danger" : "primary"}
-            onClick={heroInTeam ? handleRemove : (e) => handleAdd(e)}
+            onClick={heroInTeam ? handleRemove : handleAdd}
           >
             {heroInTeam ? "Remove" : "Add"}
           </Button>

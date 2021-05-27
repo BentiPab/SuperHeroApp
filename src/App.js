@@ -1,4 +1,4 @@
-import React, { Component, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Switch, Redirect } from "react-router";
 import "./App.css";
 import Login from "./components/LoginForm";
@@ -11,13 +11,33 @@ import UserTeam from "./components/UserTeam";
 import UserContext from "./common/userContext";
 import HeroProfile from "./components/HeroProfile";
 import Register from "./components/Register";
+import auth from "./services/authServices";
 
 const App = () => {
-  const user = useContext(UserContext);
+  const authUser = auth.getCurrentUser();
+  authUser.team = [];
+
+  const [user, setUser] = useState(authUser);
+
+  const dispatchHeroEvent = (actionType, payload) => {
+    switch (actionType) {
+      case "ADD_HERO":
+        user.team.push(payload);
+        setUser({ ...user });
+        return;
+      case "REMOVE_HERO":
+        let team = user.team.filter((hero) => hero.id === payload);
+        user.team = team;
+        setUser({ ...user });
+        return;
+      default:
+        return;
+    }
+  };
 
   return (
     <React.Fragment>
-      <UserContext.Provider value={user}>
+      <UserContext.Provider value={{ user, dispatchHeroEvent }}>
         <NavBar />
         {
           <main className="container">
@@ -34,7 +54,6 @@ const App = () => {
                 path="/all-heroes"
                 render={(props) => <AllHeroes {...props} />}
               />
-
               <Route path="/not-found" component={NotFound} />
               <Redirect from="/" to="my-team" />
               <Redirect to="/not-found" />
