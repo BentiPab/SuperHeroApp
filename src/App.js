@@ -26,7 +26,7 @@ const App = () => {
         setUser({ ...user });
         return;
       case "REMOVE_HERO":
-        let team = user.team.filter((hero) => hero.id === payload);
+        let team = user.team.filter((hero) => hero.id !== payload);
         user.team = team;
         setUser({ ...user });
         return;

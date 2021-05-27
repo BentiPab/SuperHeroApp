@@ -4,7 +4,6 @@ import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import Stats from "./Stats";
 import ModalError from "../common/Modal";
-import { addHero, removeHero } from "../services/userService";
 import { Link } from "react-router-dom";
 import UserContext from "../common/userContext";
 
@@ -16,15 +15,14 @@ const HeroCard = ({ data }) => {
 
   useEffect(() => {
     console.log(user.team, "team");
-    if (user.team) {
-      user.team.forEach((el) => {
-        if (data.id === el.id) {
-          setHeroInTeam(true);
-        } else {
-          setHeroInTeam(false)
-        }
-      });
-    }
+
+    user.team.forEach((el) => {
+      if (data.id === el.id) {
+        setHeroInTeam(true);
+      } else {
+        setHeroInTeam(false);
+      }
+    });
   }, [data.id, user.team]);
 
   const handleAdd = () => {

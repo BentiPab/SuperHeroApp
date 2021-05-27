@@ -10,7 +10,7 @@ const UserTeam = () => {
 
   return (
     <Container>
-      {console.log(user)}
+      {console.log(user.team)}
       {user.team.length === 0 && (
         <div className="my-team">
           <h5>No existing team.</h5>
