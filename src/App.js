@@ -12,13 +12,14 @@ import UserContext from "./common/userContext";
 import HeroProfile from "./components/HeroProfile";
 import Register from "./components/Register";
 import auth from "./services/authServices";
+import HeroIndex from "./components/HeroesIndex";
 
 const App = () => {
   const authUser = auth.getCurrentUser();
   const [user, setUser] = useState(authUser);
 
   useEffect(() => {
-    if (user) {
+    if (user && !user.team) {
       user.team = [];
     }
   }, [user]);
@@ -30,8 +31,7 @@ const App = () => {
         setUser({ ...user });
         return;
       case "REMOVE_HERO":
-        let team = user.team.filter((hero) => hero.id !== payload);
-        user.team = team;
+        user.team = user.team.filter((hero) => hero.id !== payload);
         setUser({ ...user });
         return;
       default:
@@ -43,27 +43,28 @@ const App = () => {
     <React.Fragment>
       <UserContext.Provider value={{ user, dispatchHeroEvent }}>
         <NavBar />
-        {
-          <main className="container">
-            <Switch>
-              <Route path="/register" component={Register} />
-              <Route path="/logout" component={Logout} />
-              <Route path="/login" component={Login} />
-              <ProtectedRoute path="/all-heroes/:id" component={HeroProfile} />
-              <ProtectedRoute
-                path="/my-team"
-                render={(props) => <UserTeam {...props} />}
-              />
-              <ProtectedRoute
-                path="/all-heroes"
-                render={(props) => <HeroSearch {...props} />}
-              />
-              <Route path="/not-found" component={NotFound} />
-              <Redirect from="/" to="my-team" />
-              <Redirect to="/not-found" />
-            </Switch>
-          </main>
-        }
+
+        <main className="container">
+          <Switch>
+            <Route path="/register" component={Register} />
+            <Route path="/logout" component={Logout} />
+            <Route path="/login" component={Login} />
+            <Route path="/hero-index" component={HeroIndex} />
+            <ProtectedRoute path="/all-heroes/:id" component={HeroProfile} />
+            <ProtectedRoute
+              path="/my-team"
+              render={(props) => <UserTeam {...props} />}
+            />
+            <ProtectedRoute
+              path="/find-hero"
+              render={(props) => <HeroSearch {...props} />}
+            />
+            <Route path="/not-found" component={NotFound} />
+
+            <Redirect from="/" to="my-team" />
+            <Redirect to="/not-found" />
+          </Switch>
+        </main>
       </UserContext.Provider>
     </React.Fragment>
   );

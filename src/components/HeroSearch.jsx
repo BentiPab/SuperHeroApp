@@ -10,7 +10,7 @@ import ModalError from "../common/Modal";
 import HeroForm from "./HeroForm";
 
 const HeroSearch = () => {
-  const [heroes, setHeroes] = useState([]);
+  const [heroes, setHeroes] = useState();
   const [searching, setSearching] = useState(false);
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
@@ -55,7 +55,7 @@ const HeroSearch = () => {
     <Container fluid="true">
       <HeroForm handleForm={handleForm} />
       <ModalError show={show} handleClose={handleClose} body={error} />
-      {!searching && heroes.length !== 0 && (
+      {!searching && heroes && (
         <Row className="justify-content-md-center ">
           <Col lg="auto" md="auto" sm="auto" xs="auto">
             <Heroes data={heroes} />

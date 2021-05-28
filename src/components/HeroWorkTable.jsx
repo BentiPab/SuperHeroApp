@@ -22,7 +22,7 @@ const HeroWorkTable = ({ data }) => {
   };
 
   return (
-    <Table striped bordered hover size="sm">
+    <Table striped bordered size="sm">
       <thead>
         <tr>
           <th>Full Name</th>

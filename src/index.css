@@ -186,11 +186,41 @@ nav {
 }
 
 .hero-profile-container table {
+  color: black !important;
+}
+
+table {
   text-align: center;
 }
 
-.hero-profile-container table th,
-.hero-profile-container table tr {
+table th,
+table tr {
   padding: 0 !important;
   vertical-align: middle !important;
+}
+
+.navbar a,
+.nav a {
+  text-decoration: none !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.navbar a:hover,
+.nav a:hover {
+  color: #ddd !important;
+}
+
+.navbar .active {
+  color: #ddd !important;
+}
+
+.dropdown-menu a {
+  color: #212529 !important;
+}
+
+.card-profile-header {
+  background-color: #343a40 !important;
+}
+
+.card-profile-body {
 }

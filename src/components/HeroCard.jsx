@@ -18,25 +18,22 @@ const HeroCard = ({ data }) => {
       user.team.forEach((el) => {
         if (data.id === el.id) {
           setHeroInTeam(true);
-        } else {
-          setHeroInTeam(false);
         }
       });
     }
-  }, [data.id, user.team]);
+  }, [data, user.team]);
 
   const handleAdd = () => {
-    if (!alignment()) {
-      setError(
-        "Team must have 3 'GOOD' Alignment heroes and 3 'BAD' Alignment heroes."
-      );
-      setShow(true);
-    } else if (teamMaxLength()) {
-      setError("Team has already 6 heroes");
-      setShow(true);
-    } else {
+    try {
       dispatchHeroEvent("ADD_HERO", data);
       setHeroInTeam(true);
+      alignment();
+      teamMaxLength();
+    } catch (e) {
+      setError(e.message);
+      setShow(true);
+      dispatchHeroEvent("REMOVE_HERO", data.id);
+      setHeroInTeam(false);
     }
   };
 
@@ -56,14 +53,16 @@ const HeroCard = ({ data }) => {
       });
     }
 
-    return bad <= 3 && good <= 3 ? true : false;
+    if (bad > 3) {
+      throw new Error("Max quantity of BAD alignment heroes reached. 3/3");
+    } else if (good > 3) {
+      throw new Error("Max quantity of GOOD alignment heroes reached. 3/3");
+    }
   };
 
   const teamMaxLength = () => {
-    if (!user.team) {
-      return false;
-    } else if (user.team.length >= 6) {
-      return true;
+    if (user.team.length > 6) {
+      throw new Error("Team has already 6 heroes");
     }
   };
 

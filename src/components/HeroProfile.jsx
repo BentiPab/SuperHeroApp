@@ -6,6 +6,7 @@ import Container from "react-bootstrap/Container";
 import HeroCard from "./HeroCard";
 import HeroWorkTable from "./HeroWorkTable";
 import HeroAppearanceTable from "./HeroAppearanceTable";
+import { NavLink } from "react-router-dom";
 
 const HeroProfile = (props) => {
   const heroId = props.match.params.id;
@@ -14,12 +15,13 @@ const HeroProfile = (props) => {
   const [appearance, setAppearance] = useState(false);
 
   useEffect(() => {
-    async function fetchData() {
-      const hero = await getHeroById(heroId);
-      setHero(hero);
-    }
     fetchData();
-  }, [heroId]);
+  });
+
+  async function fetchData() {
+    const hero = await getHeroById(heroId);
+    setHero(hero);
+  }
 
   const handleClickProfile = () => {
     setProfile(true);
@@ -34,17 +36,21 @@ const HeroProfile = (props) => {
   return (
     <Container className="hero-profile-container">
       {hero && (
-        <Card>
-          <Card.Header>
-            <Nav variant="pills" defaultActiveKey="#profile">
+        <Card bg="secondary" text="light">
+          <Card.Header className="card-profile-header">
+            <Nav variant="dark" bg="dark" defaultActiveKey="#profile">
               <Nav.Item>
-                <Nav.Link onClick={handleClickProfile} href="#profile">
-                  Hero Profile
+                <Nav.Link>
+                  <NavLink onClick={handleClickProfile} to="#profile">
+                    Hero Profile
+                  </NavLink>
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link onClick={handleClickAppearance} href="#appearance">
-                  Appearance
+                <Nav.Link>
+                  <NavLink onClick={handleClickAppearance} to="#appearance">
+                    Appearance
+                  </NavLink>
                 </Nav.Link>
               </Nav.Item>
             </Nav>
